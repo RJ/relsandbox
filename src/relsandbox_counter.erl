@@ -1,7 +1,7 @@
 -module(relsandbox_counter).
 -behaviour(gen_server).
 %% API
--export([start_link/0, increment/1, get/0]).
+-export([start_link/0, increment/1, decrement/1, get/0]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -31,6 +31,9 @@ start_link() ->
 
 increment(N) ->
     gen_server:call(?MODULE, {increment, N}).
+
+decrement(N) ->
+    increment(-1 * N).
 
 get() ->
     gen_server:call(?MODULE, get).
