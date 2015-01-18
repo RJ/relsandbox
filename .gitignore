@@ -1,3 +1,5 @@
+deps
+log
 .rebar3
 _*
 .eunit

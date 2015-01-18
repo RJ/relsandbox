@@ -75,3 +75,19 @@ Also add a boring utility module, ````relsandbox_boring````.
             {delete_module, relsandbox_boring}
         ]}]
     }.
+
+### v5 [v4...v5](https://github.com/RJ/relsandbox/compare/v4...v5)
+
+Remove module, ````relsandbox_boring````.
+Add dependency on lager (no appup instructions needed for this).
+
+#### Expected .appup
+
+    {"5",
+        [{"4", [
+            {delete_module, relsandbox_boring}
+        ]}],
+        [{"4", [
+            {load_module, relsandbox_boring}
+        ]}]
+    }.

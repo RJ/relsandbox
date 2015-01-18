@@ -53,6 +53,7 @@ set(Name, Number) when is_list(Name) ->
 init([]) ->
     %% we'll use a proplist, easier to debug in the shell
     InitialPhonebook = [],
+    lager:info("~s initialised with initial phonebook: ~p",[?MODULE, InitialPhonebook]),
     {ok, #state{phonebook=InitialPhonebook}}.
 
 %%--------------------------------------------------------------------
