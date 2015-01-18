@@ -1,6 +1,6 @@
 {application, relsandbox,
  [{description, "An OTP application"}
- ,{vsn, "2"}
+ ,{vsn, "3"}
  ,{registered, []}
  ,{mod, {relsandbox, []}}
  ,{applications,

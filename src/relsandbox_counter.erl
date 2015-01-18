@@ -2,6 +2,7 @@
 -behaviour(gen_server).
 %% API
 -export([start_link/0, increment/1, decrement/1, get/0]).
+-export([get_name/0, set_name/1]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -13,7 +14,7 @@
 
 -define(SERVER, ?MODULE).
 
--record(state, {counter}).
+-record(state, {counter, name}).
 
 %%%===================================================================
 %%% API
@@ -37,6 +38,12 @@ decrement(N) ->
 
 get() ->
     gen_server:call(?MODULE, get).
+
+get_name() ->
+    gen_server:call(?MODULE, get_name).
+
+set_name(Name) ->
+    gen_server:call(?MODULE, {set_name, Name}).
 
 %%%===================================================================
 %%% gen_server callbacks
@@ -76,6 +83,13 @@ handle_call(get, _From, State = #state{counter=C}) ->
 handle_call({increment, N}, _From, State = #state{counter=C}) ->
     NewState = State#state{counter = C + N},
     {reply, NewState#state.counter, NewState};
+
+handle_call(get_name, _From, State = #state{name=Name}) ->
+    {reply, Name, State};
+
+handle_call({set_name, Name}, _From, State = #state{}) ->
+    NewState = State#state{name=Name},
+    {reply, Name, NewState};
 
 handle_call(_Request, _From, State) ->
     Reply = ok,
@@ -129,6 +143,16 @@ terminate(_Reason, _State) ->
 %% @spec code_change(OldVsn, State, Extra) -> {ok, NewState}
 %% @end
 %%--------------------------------------------------------------------
+
+%% At this point, the new module code is loaded, so the definition of
+%% the #state{} record already has two fields.
+%% Thus, we match on a single-field record tuple (remember erlang records
+%% are just tagged tuples), and convert to the current #state{} format.
+code_change(_OldVsn, {state, Counter}, _Extra) ->
+    % we'll set the new name field to a default value
+    NewState = #state{counter=Counter, name="NO_NAME_SPECIFIED"},
+    {ok, NewState};
+
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
 

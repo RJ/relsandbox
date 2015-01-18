@@ -31,3 +31,19 @@ Add a decrement convenience function, no ````#state{}```` change.
         ]}]
     }.
 
+### v3 [v2...v3](https://github.com/RJ/relsandbox/compare/v2...v3)
+
+Add name field to ````#state{}```` and get/set API.
+This requires a ````code_change```` function to upgrade the state
+record.
+
+#### Expected .appup
+
+    {"3",
+        [{"2", [
+            {update, relsandbox_counter, {advanced, []}}
+        ]}],
+        [{"2", [
+            {update, relsandbox_counter, {advanced, []}}
+        ]}]
+    }.
