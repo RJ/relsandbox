@@ -32,7 +32,11 @@ init([]) ->
                {relsandbox_counter, start_link, []},
                permanent, 5000, worker, [relsandbox_counter]},
 
-    Children = [Counter],
+    Phonebook = {relsandbox_phonebook,
+                 {relsandbox_phonebook, start_link, []},
+                 permanent, 5000, worker, [relsandbox_phonebook]},
+
+    Children = [Counter, Phonebook],
 
     {ok, {{one_for_one, 10, 1}, Children}}.
 
