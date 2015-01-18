@@ -1,0 +1,12 @@
+{application, relsandbox,
+ [{description, "An OTP application"}
+ ,{vsn, "1"}
+ ,{registered, []}
+ ,{mod, {relsandbox, []}}
+ ,{applications,
+   [kernel
+   ,stdlib
+   ]}
+ ,{env,[]}
+ ,{modules, []}
+ ]}.
