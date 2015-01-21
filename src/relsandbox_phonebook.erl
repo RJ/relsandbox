@@ -3,6 +3,8 @@
 %% API
 -export([start_link/0, set/2, get/1]).
 
+-define(changeerer, 2).
+
 %% gen_server callbacks
 -export([init/1,
          handle_call/3,
